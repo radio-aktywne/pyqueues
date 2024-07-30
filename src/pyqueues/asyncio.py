@@ -1,13 +1,10 @@
 import asyncio
 from collections.abc import Iterable
-from typing import TypeVar
 
 from pyqueues.base import Queue
 
-T = TypeVar("T")
 
-
-class AsyncioQueue(Queue[T]):
+class AsyncioQueue[T](Queue[T]):
     """Asyncio queue."""
 
     def __init__(

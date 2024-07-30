@@ -1,14 +1,11 @@
 from abc import ABC, abstractmethod
-from typing import Generic, TypeVar
 
 import pytest
 
 from pyqueues.base import Queue
 
-T = TypeVar("T")
 
-
-class QueueLifespan(Generic[T], ABC):
+class QueueLifespan[T](ABC):
     """Base class for managing the lifespan of a queue."""
 
     async def __aenter__(self) -> Queue[T]:
@@ -30,7 +27,7 @@ class QueueLifespan(Generic[T], ABC):
         pass
 
 
-class QueueLifespanBuilder(Generic[T], ABC):
+class QueueLifespanBuilder[T](ABC):
     """Base class for building a queue lifespan."""
 
     @abstractmethod
@@ -40,7 +37,7 @@ class QueueLifespanBuilder(Generic[T], ABC):
         pass
 
 
-class BaseQueueTest(Generic[T], ABC):
+class BaseQueueTest[T](ABC):
     """Base class for testing a queue."""
 
     @pytest.fixture()
@@ -68,7 +65,7 @@ class BaseQueueTest(Generic[T], ABC):
     async def test_get_put(self, builder: QueueLifespanBuilder[T], value: T) -> None:
         """Test getting and putting a value."""
 
-        async with (await builder.build()) as queue:
+        async with await builder.build() as queue:
             await queue.put(value)
             assert await queue.get() == value
 
@@ -78,7 +75,7 @@ class BaseQueueTest(Generic[T], ABC):
     ) -> None:
         """Test getting and putting multiple values."""
 
-        async with (await builder.build()) as queue:
+        async with await builder.build() as queue:
             await queue.put(value)
             await queue.put(other_value)
             assert await queue.get() == value
