@@ -1,14 +1,10 @@
-from typing import TypeVar
-
 import pytest
 
 from pyqueues.asyncio import AsyncioQueue
 from tests.utils.unit import BaseQueueTest, QueueLifespan, QueueLifespanBuilder
 
-T = TypeVar("T")
 
-
-class AsyncioQueueLifespan(QueueLifespan[T]):
+class AsyncioQueueLifespan[T](QueueLifespan[T]):
     def __init__(self, queue: AsyncioQueue[T]) -> None:
         self._queue = queue
 
@@ -19,15 +15,15 @@ class AsyncioQueueLifespan(QueueLifespan[T]):
         return None
 
 
-class AsyncioQueueLifespanBuilder(QueueLifespanBuilder[T]):
+class AsyncioQueueLifespanBuilder[T](QueueLifespanBuilder[T]):
     async def build(self) -> AsyncioQueueLifespan[T]:
-        return AsyncioQueueLifespan(AsyncioQueue())
+        return AsyncioQueueLifespan[T](AsyncioQueue[T]())
 
 
 class TestAsyncioQueue(BaseQueueTest[int]):
     @pytest.fixture()
     def builder(self) -> AsyncioQueueLifespanBuilder[int]:
-        return AsyncioQueueLifespanBuilder()
+        return AsyncioQueueLifespanBuilder[int]()
 
     @pytest.fixture()
     def value(self) -> int:

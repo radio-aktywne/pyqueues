@@ -1,10 +1,7 @@
 from abc import ABC, abstractmethod
-from typing import Generic, TypeVar
-
-T = TypeVar("T")
 
 
-class Queue(Generic[T], ABC):
+class Queue[T](ABC):
     """Base class for queues."""
 
     @abstractmethod
