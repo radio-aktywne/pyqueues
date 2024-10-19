@@ -2,10 +2,10 @@ import type * as Preset from "@docusaurus/preset-classic";
 import type { Config } from "@docusaurus/types";
 import { themes } from "prism-react-renderer";
 
-const url = new URL("https://radio-aktywne.github.io/package-pyqueues");
+const url = new URL("https://radio-aktywne.github.io/pyqueues");
 
 const config: Config = {
-  title: "pyqueues package docs",
+  title: "pyqueues docs",
   favicon: "favicon.svg?v=1",
 
   url: `${url.protocol}//${url.host}`,
@@ -41,14 +41,14 @@ const config: Config = {
 
   themeConfig: {
     navbar: {
-      title: "pyqueues package docs",
+      title: "pyqueues docs",
       logo: {
-        alt: "pyqueues package docs logo",
+        alt: "pyqueues docs logo",
         src: "logo.svg?v=1",
       },
       items: [
         {
-          href: "https://github.com/radio-aktywne/package-pyqueues",
+          href: "https://github.com/radio-aktywne/pyqueues",
           position: "right",
           className: "header-github-link",
           "aria-label": "GitHub repository",

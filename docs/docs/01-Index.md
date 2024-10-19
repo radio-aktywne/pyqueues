@@ -3,7 +3,7 @@ slug: /
 title: Index
 ---
 
-# pyqueues package
+# pyqueues
 
 Queueing utilities for Python 🐍
 
