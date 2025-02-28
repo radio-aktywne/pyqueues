@@ -40,28 +40,28 @@ class QueueLifespanBuilder[T](ABC):
 class BaseQueueTest[T](ABC):
     """Base class for testing a queue."""
 
-    @pytest.fixture()
+    @pytest.fixture
     @abstractmethod
     def builder(self) -> QueueLifespanBuilder[T]:
         """Return a builder for a queue lifespan."""
 
         pass
 
-    @pytest.fixture()
+    @pytest.fixture
     @abstractmethod
     def value(self) -> T:
         """Return some test value."""
 
         pass
 
-    @pytest.fixture()
+    @pytest.fixture
     @abstractmethod
     def other_value(self) -> T:
         """Return some other test value."""
 
         pass
 
-    @pytest.mark.asyncio(scope="session")
+    @pytest.mark.asyncio(loop_scope="session")
     async def test_get_put(self, builder: QueueLifespanBuilder[T], value: T) -> None:
         """Test getting and putting a value."""
 
@@ -69,7 +69,7 @@ class BaseQueueTest[T](ABC):
             await queue.put(value)
             assert await queue.get() == value
 
-    @pytest.mark.asyncio(scope="session")
+    @pytest.mark.asyncio(loop_scope="session")
     async def test_get_put_multiple(
         self, builder: QueueLifespanBuilder[T], value: T, other_value: T
     ) -> None:

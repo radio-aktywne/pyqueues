@@ -21,14 +21,14 @@ class AsyncioQueueLifespanBuilder[T](QueueLifespanBuilder[T]):
 
 
 class TestAsyncioQueue(BaseQueueTest[int]):
-    @pytest.fixture()
+    @pytest.fixture
     def builder(self) -> AsyncioQueueLifespanBuilder[int]:
         return AsyncioQueueLifespanBuilder[int]()
 
-    @pytest.fixture()
+    @pytest.fixture
     def value(self) -> int:
         return 1
 
-    @pytest.fixture()
+    @pytest.fixture
     def other_value(self) -> int:
         return 2
