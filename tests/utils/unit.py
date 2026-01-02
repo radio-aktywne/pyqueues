@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from types import TracebackType
 
 import pytest
 
@@ -11,20 +12,21 @@ class QueueLifespan[T](ABC):
     async def __aenter__(self) -> Queue[T]:
         return await self.enter()
 
-    async def __aexit__(self, *args, **kwargs) -> None:
-        await self.exit()
+    async def __aexit__(
+        self,
+        exception_type: type[BaseException] | None,
+        exception: BaseException | None,
+        traceback: TracebackType | None,
+    ) -> None:
+        return await self.exit()
 
     @abstractmethod
     async def enter(self) -> Queue[T]:
         """Enter the lifespan of the queue."""
 
-        pass
-
     @abstractmethod
     async def exit(self) -> None:
         """Exit the lifespan of the queue."""
-
-        pass
 
 
 class QueueLifespanBuilder[T](ABC):
@@ -33,8 +35,6 @@ class QueueLifespanBuilder[T](ABC):
     @abstractmethod
     async def build(self) -> QueueLifespan[T]:
         """Build a queue lifespan."""
-
-        pass
 
 
 class BaseQueueTest[T](ABC):
@@ -45,26 +45,19 @@ class BaseQueueTest[T](ABC):
     def builder(self) -> QueueLifespanBuilder[T]:
         """Return a builder for a queue lifespan."""
 
-        pass
-
     @pytest.fixture
     @abstractmethod
     def value(self) -> T:
         """Return some test value."""
-
-        pass
 
     @pytest.fixture
     @abstractmethod
     def other_value(self) -> T:
         """Return some other test value."""
 
-        pass
-
     @pytest.mark.asyncio(loop_scope="session")
     async def test_get_put(self, builder: QueueLifespanBuilder[T], value: T) -> None:
         """Test getting and putting a value."""
-
         async with await builder.build() as queue:
             await queue.put(value)
             assert await queue.get() == value
@@ -74,7 +67,6 @@ class BaseQueueTest[T](ABC):
         self, builder: QueueLifespanBuilder[T], value: T, other_value: T
     ) -> None:
         """Test getting and putting multiple values."""
-
         async with await builder.build() as queue:
             await queue.put(value)
             await queue.put(other_value)

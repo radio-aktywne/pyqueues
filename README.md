@@ -2,7 +2,7 @@
 
 <div align="center">
 
-Queueing utilities for Python 🐍
+Queueing utilities package for Python 🐍
 
 [![Lint](https://github.com/radio-aktywne/pyqueues/actions/workflows/lint.yaml/badge.svg)](https://github.com/radio-aktywne/pyqueues/actions/workflows/lint.yaml)
 [![Test](https://github.com/radio-aktywne/pyqueues/actions/workflows/test.yaml/badge.svg)](https://github.com/radio-aktywne/pyqueues/actions/workflows/test.yaml)
@@ -14,7 +14,8 @@ Queueing utilities for Python 🐍
 
 ## 💡 About
 
-This package provides implementations of various asynchronous queues
+`pyqueues` is a [`Python`](https://www.python.org) package
+that provides implementations of various asynchronous queues
 to simplify implementing asynchronous communication in concurrent code.
 
 ## 📄 Further Reading
