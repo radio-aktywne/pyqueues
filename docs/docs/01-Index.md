@@ -5,9 +5,10 @@ title: Index
 
 # pyqueues
 
-Queueing utilities for Python 🐍
+Queueing utilities package for Python 🐍
 
 ## 💡 About
 
-This package provides implementations of various asynchronous queues
+`pyqueues` is a [`Python`](https://www.python.org) package
+that provides implementations of various asynchronous queues
 to simplify implementing asynchronous communication in concurrent code.
